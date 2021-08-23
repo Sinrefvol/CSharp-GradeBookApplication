@@ -15,10 +15,13 @@ namespace GradeBook.GradeBooks
         public string Name { get; set; }
         public List<Student> Students { get; set; }
 
-        public BaseGradeBook(string name)
+        public bool IsWeighted { get; set; }
+
+        public BaseGradeBook(string name, bool IsWeighted)
         {
             Name = name;
             Students = new List<Student>();
+            this.IsWeighted = IsWeighted;
         }
 
         public void AddStudent(Student student)
@@ -110,12 +113,40 @@ namespace GradeBook.GradeBooks
             switch (letterGrade)
             {
                 case 'A':
+                    if(studentType == StudentType.Honors || studentType == StudentType.DualEnrolled)
+                    {
+                        if (this.IsWeighted)
+                        {
+                            return 5;
+                        }
+                    }
                     return 4;
                 case 'B':
+                    if (studentType == StudentType.Honors || studentType == StudentType.DualEnrolled)
+                    {
+                        if (this.IsWeighted)
+                        {
+                            return 4;
+                        }
+                    }
                     return 3;
                 case 'C':
+                    if (studentType == StudentType.Honors || studentType == StudentType.DualEnrolled)
+                    {
+                        if (this.IsWeighted)
+                        {
+                            return 3;
+                        }
+                    }
                     return 2;
                 case 'D':
+                    if (studentType == StudentType.Honors || studentType == StudentType.DualEnrolled)
+                    {
+                        if (this.IsWeighted)
+                        {
+                            return 2;
+                        }
+                    }
                     return 1;
                 case 'F':
                     return 0;
